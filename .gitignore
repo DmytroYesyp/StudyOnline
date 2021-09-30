@@ -5,11 +5,11 @@ __pycache__/
 
 # C extensions
 *.so
-Lab_4/
+
 # Distribution / packaging
 .idea/
 ./
-
+Lab_4/
 .Python
 build/
 develop-eggs/
