@@ -215,24 +215,16 @@ def delete_course(id):
 
 @app.route('/request', methods=['POST'])
 def create_request():
-    print("create_request")
     req = requestClass(
         requestFrom = request.json.get('requestFrom'),
         requestToCourse = request.json.get('requestToCourse'),
         requestToLector = request.json.get('requestToLector'),
     )
 
-    Check1 = (Session.query(requestClass).filter_by(requestFrom=requestClass.requestFrom).all())
-    if Check1 != []:
-        return make_response(jsonify({'error': 'requestFrom is incorrect'}), 409)
-
-    Check2 = (Session.query(requestClass).filter_by(requestToCourse=requestClass.requestToCourse).all())
+    Check2 = (Session.query(requestClass).filter_by(requestToCourse=req.requestToCourse).all())
     if Check2 != []:
-        return make_response(jsonify({'error': 'requestFrom is incorrect'}), 409)
+        return make_response(jsonify({'error': 'user is already added'}), 409)
 
-    Check3 = (Session.query(requestClass).filter_by(requestToLector=requestClass.requestToLector).all())
-    if Check3 != []:
-        return make_response(jsonify({'error': 'requestFrom is incorrect'}), 409)
     try:
         Session.add(req)
         Session.commit()
